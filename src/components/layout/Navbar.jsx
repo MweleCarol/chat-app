@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useAuth }      from '../../context/AuthContext';
 import { useChat }      from '../../context/ChatContext';
 import { Avatar, IconButton } from '../ui';
-import { MenuIcon, ProfileIcon, LogoutIcon, ChevDownIcon } from '../ui/Icons';
+import { MenuIcon, ProfileIcon, LogoutIcon } from '../ui/Icons';
 import ProfileModal from '../profile/ProfileModal';
 
 export default function Navbar() {
@@ -14,63 +14,72 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="h-14 px-4 bg-bg-1 border-b border-border flex items-center gap-3 flex-shrink-0 relative z-50">
-        {/* Hamburger — mobile only */}
-        <IconButton
-          className="md:hidden"
-          active={sidebarOpen}
-          onClick={toggleSb}
-          title="Toggle sidebar"
-        >
+      <nav className="h-14 px-4 glass border-b border-border flex items-center gap-3 flex-shrink-0 relative z-50">
+        {/* Mobile hamburger */}
+        <IconButton className="md:hidden" active={sidebarOpen} onClick={toggleSb} title="Menu">
           <MenuIcon size={17} />
         </IconButton>
 
         {/* Logo */}
-        <div className="flex items-center gap-2 font-display text-[20px] font-extrabold tracking-tight flex-1">
-          <div className="w-2 h-2 rounded-full bg-accent animate-pulse-dot" />
-          Pulse
+        <div className="flex items-center gap-2.5 flex-1">
+          <div className="w-7 h-7 rounded-lg bg-grad-accent flex items-center justify-center shadow-accent flex-shrink-0">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <span className="font-display text-[18px] font-bold tracking-tight grad-text">Pulse</span>
         </div>
 
-        {/* Avatar + dropdown trigger */}
+        {/* User menu trigger */}
         <div className="relative">
           <button
-            className="flex items-center gap-1.5 py-1 px-1.5 rounded-[10px] hover:bg-bg-3 transition-colors"
             onClick={() => setMenu(m => !m)}
+            className="flex items-center gap-2.5 py-1.5 px-2 rounded-xl hover:bg-surface-2 transition-all duration-200 group"
           >
-            <Avatar user={user} size={32} />
-            <span className="text-text-2 flex items-center"><ChevDownIcon size={12} /></span>
+            <Avatar user={user} size={30} />
+            <div className="hidden sm:block text-left min-w-0">
+              <div className="text-[13px] font-semibold text-text-0 leading-none truncate max-w-[120px]">{user?.username}</div>
+              <div className="text-[11px] text-text-2 mt-0.5">Online</div>
+            </div>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
+              className={`text-text-2 transition-transform duration-200 ${menuOpen ? 'rotate-180' : ''}`}>
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
           </button>
 
           {menuOpen && (
             <>
-              {/* Click-away overlay */}
               <div className="fixed inset-0 z-[98]" onClick={() => setMenu(false)} />
-
-              {/* Menu */}
-              <div className="absolute top-[calc(100%+8px)] right-0 w-[230px] bg-bg-2 border border-border-bright rounded-[10px] shadow-darker z-[99] overflow-hidden animate-scale-in origin-top-right">
-                {/* User info */}
-                <div className="flex items-center gap-2.5 px-4 py-3.5">
-                  <Avatar user={user} size={36} />
+              <div className="absolute top-[calc(100%+8px)] right-0 w-[220px] bg-bg-3 border border-border-bright rounded-2xl shadow-card-lg z-[99] overflow-hidden animate-scale-in card-top-shine">
+                {/* User info header */}
+                <div className="flex items-center gap-3 px-4 py-4 border-b border-border">
+                  <Avatar user={user} size={38} />
                   <div className="min-w-0">
-                    <div className="text-[14px] font-semibold truncate">{user?.username}</div>
-                    <div className="text-[12px] text-text-2 truncate">{user?.email}</div>
+                    <div className="text-[13px] font-semibold truncate">{user?.username}</div>
+                    <div className="text-[11px] text-text-2 truncate mt-0.5">{user?.email}</div>
                   </div>
                 </div>
 
-                <hr className="border-border m-0" />
-
-                <button
-                  className="flex items-center gap-2.5 w-full px-4 py-3 text-[13px] text-text-1 hover:bg-bg-3 hover:text-text-0 transition-colors text-left"
-                  onClick={() => { setProf(true); setMenu(false); }}
-                >
-                  <ProfileIcon size={15} /> Edit Profile
-                </button>
-                <button
-                  className="flex items-center gap-2.5 w-full px-4 py-3 text-[13px] text-text-1 hover:bg-bg-3 hover:text-red-400 transition-colors text-left"
-                  onClick={logout}
-                >
-                  <LogoutIcon size={15} /> Sign Out
-                </button>
+                <div className="p-1.5">
+                  <button
+                    className="flex items-center gap-3 w-full px-3 py-2.5 text-[13px] text-text-1 hover:bg-surface-2 hover:text-text-0 rounded-xl transition-all"
+                    onClick={() => { setProf(true); setMenu(false); }}
+                  >
+                    <div className="w-6 h-6 rounded-lg bg-accent/10 flex items-center justify-center">
+                      <ProfileIcon size={13} className="text-accent-light" />
+                    </div>
+                    Edit Profile
+                  </button>
+                  <button
+                    className="flex items-center gap-3 w-full px-3 py-2.5 text-[13px] text-text-1 hover:bg-red-500/10 hover:text-danger rounded-xl transition-all mt-0.5"
+                    onClick={logout}
+                  >
+                    <div className="w-6 h-6 rounded-lg bg-red-500/10 flex items-center justify-center">
+                      <LogoutIcon size={13} className="text-danger" />
+                    </div>
+                    Sign Out
+                  </button>
+                </div>
               </div>
             </>
           )}
