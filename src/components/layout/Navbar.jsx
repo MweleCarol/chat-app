@@ -8,7 +8,7 @@ import ProfileModal from '../profile/ProfileModal';
 
 export default function Navbar() {
   const { user, logout }       = useAuth();
-  const { toggleSb, sidebarOpen } = useChat();
+  const { toggleSidebar: toggleSb, sidebarOpen } = useChat();
   const [menuOpen, setMenu]    = useState(false);
   const [showProfile, setProf] = useState(false);
 

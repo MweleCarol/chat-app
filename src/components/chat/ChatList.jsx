@@ -73,7 +73,15 @@ function ConvItem({ conv, isActive, currentUserId, onClick }) {
 /* ── ChatList ────────────────────────────────────────────── */
 export default function ChatList() {
   const { user }                                                   = useAuth();
-  const { convs, activeId, selectConv, startConv, contacts, sidebarOpen, closeSb } = useChat();
+  const {
+    conversations: convs,
+    activeConvId:  activeId,
+    selectConversation: selectConv,
+    startConversation:  startConv,
+    contacts,
+    sidebarOpen,
+    closeSidebar: closeSb,
+  } = useChat();
   const [search,    setSearch]   = useState('');
   const [showCp,    setShowCp]   = useState(false);
 

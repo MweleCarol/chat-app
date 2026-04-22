@@ -1,76 +1,63 @@
 /* src/index.css */
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ── Base resets ─────────────────────────────────────────── */
 @layer base {
   *, *::before, *::after { box-sizing: border-box; }
 
   html, body, #root {
     height: 100%;
     overflow: hidden;
+    background-color: #0a0a0f;
+    color: #f0f0f8;
   }
 
   body {
-    @apply bg-bg-0 text-text-0 font-body;
+    font-family: 'DM Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  button { @apply font-body cursor-pointer; }
-  input, textarea { @apply font-body outline-none; }
+  button  { font-family: inherit; cursor: pointer; }
+  input, textarea { font-family: inherit; outline: none; }
 
-  ::-webkit-scrollbar        { width: 4px; height: 4px; }
-  ::-webkit-scrollbar-track  { background: transparent; }
-  ::-webkit-scrollbar-thumb  { @apply bg-bg-5 rounded; }
+  ::-webkit-scrollbar       { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #343440; border-radius: 4px; }
 }
 
-/* ── Reusable component classes ──────────────────────────── */
 @layer components {
-
-  /* Gradient bubble (mine) */
+  /* Gradient message bubble */
   .bubble-mine {
     background: linear-gradient(135deg, #7c6dfa, #9b8dff);
   }
 
-  /* Animated ring around avatar */
+  /* Spinning avatar ring gradient */
   .ring-gradient {
     background: linear-gradient(135deg, #7c6dfa, #fa6d9a);
   }
 
-  /* Accent glow focus ring */
-  .focus-accent {
-    @apply focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent;
-  }
-
-  /* Glass header blur */
+  /* Frosted glass header */
   .glass-header {
-    background: rgba(17,17,24,0.88);
+    background: rgba(17, 17, 24, 0.88);
     backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
   }
 
-  /* Sidebar active indicator bar */
-  .active-bar::before {
-    content: '';
-    @apply absolute left-0 top-[15%] h-[70%] w-[3px] bg-accent rounded-r;
-  }
-
-  /* Online pulse glow */
+  /* Online dot glow */
   .online-glow {
     box-shadow: 0 0 6px #3ddc97;
   }
 }
 
-/* ── Utility extras ──────────────────────────────────────── */
 @layer utilities {
-  .scrollbar-none { scrollbar-width: none; }
-  .scrollbar-none::-webkit-scrollbar { display: none; }
-
-  .text-gradient {
-    background: linear-gradient(135deg, #7c6dfa, #fa6d9a);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
   }
 }

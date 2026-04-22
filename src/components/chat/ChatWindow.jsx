@@ -44,8 +44,13 @@ function EmptyState() {
 export default function ChatWindow() {
   const { user }     = useAuth();
   const {
-    activeConv, activeId, activeMsgs, activeTyping,
-    contacts, sendMessage, toggleSb,
+    activeConv,
+    activeConvId:  activeId,
+    activeMessages: activeMsgs,
+    activeTyping,
+    contacts,
+    sendMessage,
+    toggleSidebar: toggleSb,
   }                  = useChat();
 
   const bottomRef    = useRef(null);
